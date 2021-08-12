@@ -1,0 +1,227 @@
+<meta charset="UTF-8">
+<link rel="icon" href="data:image/x-icon;base64,">
+<title>Application Title</title>
+<link rel="stylesheet" href="app/styles/app-style.css">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Wellkom | Be Well - Perform Well - Live Well Longer</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="app/styles/newcss.css">
+<link rel="stylesheet" href="app/styles/bootstrap.min.css">
+<link rel="stylesheet" href="app/styles/bootstrap-theme.min.css">
+<link rel="stylesheet" href="app/styles/fontAwesome.css">
+<link rel="stylesheet" href="app/styles/light-box.css">
+<link rel="stylesheet" href="app/styles/owl-carousel.css">
+<link rel="stylesheet" href="app/styles/templatemo-style.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
+<script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
+<script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+<div class="page-content">
+           <section id="projects2" class="content-section">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-heading">
+                            <h1>Actions you can take to manage <em>anxiety for an upcoming situation</em></h1>
+                        </div>
+                        <div class="text-content">
+                            <div class="section-heading">
+                            <ul>
+                            <li>One frequent cause of anxiety is a very important situation which you know is
+                                coming such as a presentation, an interview for promotion, an important match or
+                                a significant deal </li>
+                            <li>Anxiety management is about identifying all the known possible outcomes and
+                                scenarios that could occur in this situation. The key is starting as soon as
+                                possible when you know that the situation is coming. This could be 3 months
+                                before the presentation as you know the date.</li>
+                            <li>For each major step, what are all the possible situations and outcomes, the ‘What
+                                ifs’. Take each of these in turn and consider how you are going to handle it. In
+                                this way you build up confidence and self-belief - based on the ’rock of
+                                preparation’.</li>
+                            <li>As the situation develops you will find yourself in one of the scenarios you have
+                                rehearsed and will be able to handle it in the way you planned. </li>
+                            <li>Questions which are raised at the end of your presentation.
+                                <ol>
+                                    <li>You have anticipated these and have notes to answer them.</li>
+                                    <li>You have talked to a colleague who has been successfully promoted after
+                                        a similar interview and discussed with him the structure and types of
+                                        questions.</li>
+                                    <li>The weather conditions have suddenly become a lot wetter but you have all
+                                        the right gear to cope.</li>
+                                </ol>
+                            </li>
+                        </ul>
+                        <p>What many people don’t often realize is the amount of energy and resources are
+                            committed to creating ‘What ifs’ and their solutions by the most persons / teams /
+                            organisations that have the best success rates
+                            </p>
+                        <p>Identify one important upcoming situation that you are already anxious about. <button  style="background-color: transparent;border:none;" id="nB1"><i class="fa fa-microphone" aria-hidden="true"></i></button>
+</p>
+<div id="NC1" style="display:none">
+    <table  width="100%">
+      <tr>
+        <td><input id="subscriptionKey" type="hidden" type="text" size="40" value="bea8ac191ce041ecbcabc85e062630f5"></td>
+      </tr>
+      <tr>
+        <td><input type="hidden" id="serviceRegion" type="text" size="40" value="westeurope"></td>
+      </tr>
+      
+
+    </table>
+  </div>
+<form>
+<textarea  id="nT1" name="text" cols="100" rows="10" class="form-control" ></textarea>
+</form>
+                        <p>Use the ‘What ifs’ technique to manage your own anxiety. <button  style="background-color: transparent;border:none;" id="nB2"><i class="fa fa-microphone" aria-hidden="true"></i></button>
+</p>
+<div id="NC2" style="display:none">
+    <table  width="100%">
+      <tr>
+        <td><input id="subscriptionKey" type="hidden" type="text" size="40" value="bea8ac191ce041ecbcabc85e062630f5"></td>
+      </tr>
+      <tr>
+        <td><input type="hidden" id="serviceRegion" type="text" size="40" value="westeurope"></td>
+      </tr>
+      
+
+    </table>
+  </div>
+<form>
+<textarea  id="nT2" name="text" cols="100" rows="10" class="form-control" ></textarea>
+</form>
+                            </ul>         
+            </section>
+</div>
+<script>
+
+    // status fields and start button in UI
+
+    var nT1,nT2;
+
+    var nB1,nB2;
+
+    // subscription key and region for speech services.
+    var subscriptionKey, serviceRegion, languageTargetOptions, languageSourceOptions;
+    var SpeechSDK;
+    var recognizerone;
+
+
+      nB1 = document.getElementById("nB1");
+      nB2 = document.getElementById("nB2");
+
+
+      subscriptionKey = document.getElementById("subscriptionKey");
+      serviceRegion = document.getElementById("serviceRegion");
+
+
+      nT1 = document.getElementById("nT1");
+      nT2 = document.getElementById("nT2");
+
+
+
+
+
+nB1.addEventListener("click", function () {
+        nB1.disabled = true;
+        nB1.style.color="red";
+        nT1.innerHTML = "";
+
+        if (subscriptionKey.value === "" || subscriptionKey.value === "subscription") {
+          alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+          nB1.disabled = false;
+          return;
+        }
+        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
+
+        speechConfig.speechRecognitionLanguage = "en-US";
+        let language = "en"
+        speechConfig.addTargetLanguage(language)
+
+        var audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+        recognizerone = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+
+        recognizerone.recognizeOnceAsync(
+          function (result) {
+            nB1.disabled = false;
+            nB1.style.color="black";
+            let translation = result.translations.get(language);
+            window.console.log(translation);
+            nT1.innerHTML += translation;
+
+            recognizerone.close();
+            recognizerone = undefined;
+          },
+          function (err) {
+            nB1.disabled = false;
+            nB1.style.color="black";
+            nT1.innerHTML += err;
+            window.console.log(err);
+
+            recognizerone.close();
+            recognizerone = undefined;
+          });
+      });
+nB2.addEventListener("click", function () {
+        nB2.disabled = true;
+        nB2.style.color="red";
+        nT2.innerHTML = "";
+
+        if (subscriptionKey.value === "" || subscriptionKey.value === "subscription") {
+          alert("Please enter your Microsoft Cognitive Services Speech subscription key!");
+          nB2.disabled = false;
+          return;
+        }
+        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
+
+        speechConfig.speechRecognitionLanguage = "en-US";
+        let language = "en"
+        speechConfig.addTargetLanguage(language)
+
+        var audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+        recognizerone = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+
+        recognizerone.recognizeOnceAsync(
+          function (result) {
+            nB2.disabled = false;
+            nB2.style.color="black";
+            let translation = result.translations.get(language);
+            window.console.log(translation);
+            nT2.innerHTML += translation;
+
+            recognizerone.close();
+            recognizerone = undefined;
+          },
+          function (err) {
+            nB2.disabled = false;
+            nB2.style.color="black";
+            nT2.innerHTML += err;
+            window.console.log(err);
+
+            recognizerone.close();
+            recognizerone = undefined;
+          });
+      });
+
+
+
+
+      if (!!window.SpeechSDK) {
+        SpeechSDK = window.SpeechSDK;
+        nB1.disabled=false;
+        nB1.style.color="black";
+        nB2.disabled=false;
+        nB2.style.color="black";
+
+
+        document.getElementById('NC1').style.display = 'block';
+        document.getElementById('NC2').style.display = 'block';
+
+
+        document.getElementById('warning').style.display = 'none';
+      }
+
+  </script>
